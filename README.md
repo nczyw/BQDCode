@@ -1,5 +1,7 @@
 # BQDCode
+
 ## 使用的函数名，已经完全导出，后续会出Qt使用的方法
+
 * [许可](https://www.apache.org/licenses/LICENSE-2.0.txt)
 * 集成了[GNU Barcode](https://ftp.gnu.org/gnu/barcode/) 库
 * 集成了[Dmtx](https://github.com/dmtx/libdmtx) 库
