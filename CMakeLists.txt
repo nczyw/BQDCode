@@ -34,6 +34,8 @@ target_include_directories(${PRONAME} PUBLIC
                                         inc                                           
 )
 
+target_compile_definitions(${PRONAME} PRIVATE BQDCODE_LIBRARY)
+
 if(DllTest)
         #create exception 
         add_executable(Dlltest test/main.c)

@@ -4,21 +4,28 @@
 #include "qrencode.h"
 #include "dmtx.h"
 
+
+
+#if defined(_MSC_VER) || defined(WIN64) || defined(_WIN64) || defined(__WIN64__) || defined(WIN32) \
+    || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+
+#define Q_DECL_EXPORT __declspec(dllexport)
+#define Q_DECL_IMPORT __declspec(dllimport)
+#else
+#define Q_DECL_EXPORT __attribute__((visibility("default")))
+#define Q_DECL_IMPORT __attribute__((visibility("default")))
+#endif
+
+#if defined(BQDCODE_LIBRARY)
+#define BQDCODE_EXPORT Q_DECL_EXPORT
+#else
+#define BQDCODE_EXPORT Q_DECL_IMPORT
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#if defined(_WIN32)
-    #define BQDCODE_EXPORT __declspec(dllexport)
-#elif defined(__GNUC__)
-    #define BQDCODE_EXPORT __attribute__ ((visibility("default")))
-#elif defined(__clang__)
-    #define BQDCODE_EXPORT __attribute__ ((visibility("default")))
-//#elif defined(__INTEL_COMPILER)
-    // ICC 编译器特定的代码
-#else
-    #error "Unsupported system"
-#endif
 /*
  * Create and destroy barcode structures
  */
