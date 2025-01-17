@@ -16,10 +16,14 @@
 #define Q_DECL_IMPORT __attribute__((visibility("default")))
 #endif
 
-#if defined(BQDCODE_LIBRARY)
-#define BQDCODE_EXPORT Q_DECL_EXPORT
+#if defined(BQDCODE_SHARED_LIBS)
+  #if defined(BQDCODE_LIBRARY)
+    #define BQDCODE_EXPORT Q_DECL_EXPORT
+  #else
+    #define BQDCODE_EXPORT Q_DECL_IMPORT
+  #endif
 #else
-#define BQDCODE_EXPORT Q_DECL_IMPORT
+  #define BQDCODE_EXPORT
 #endif
 
 #ifdef __cplusplus
