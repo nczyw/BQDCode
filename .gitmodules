@@ -1,0 +1,9 @@
+[submodule "external/libbarcode"]
+	path = external/libbarcode
+	url = https://github.com/nczyw/libbarcode.git
+[submodule "external/libqrencode"]
+	path = external/libqrencode
+	url = https://github.com/fukuchi/libqrencode.git
+[submodule "external/libdmtx"]
+	path = external/libdmtx
+	url = https://github.com/dmtx/libdmtx.git
