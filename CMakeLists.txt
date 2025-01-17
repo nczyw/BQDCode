@@ -9,6 +9,8 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 option(DllTest "Create dll test exe file" OFF)
 # Create shared library ?
 option(BQDCODE_SHARED_LIBS "Create BQDCODE shared library" OFF)
+# Install
+option(DISABLE_SubMoudle_INSTALL "Disable install submodule libray" OFF)
 # Close WITH_TOOLS because no use it
 set(WITH_TOOLS OFF CACHE BOOL "Force utility tools to be OFF" FORCE) 
 # Add libbarcode
@@ -74,16 +76,19 @@ if(DllTest)
         )
         
 endif()
-
-# Set install path
-set(CMAKE_INSTALL_PREFIX install)
-# Install
-install(TARGETS ${PRONAME}
+if(DISABLE_SubMoudle_INSTALL)
+  message(STATUS "Install is disabled for this submodule.")
+else()
+  # Set install path
+  set(CMAKE_INSTALL_PREFIX install)
+  # Install
+  install(TARGETS ${PRONAME}
     EXPORT MyLibraryTargets
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
-)
-# install 
-set_target_properties(${PRONAME} PROPERTIES PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/inc/bqdcode.h" OUTPUT_NAME ${PRONAME})
-install(TARGETS ${PRONAME} LIBRARY ARCHIVE RUNTIME PUBLIC_HEADER)
+  )
+  # install 
+  set_target_properties(${PRONAME} PROPERTIES PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/inc/bqdcode.h" OUTPUT_NAME ${PRONAME})
+  install(TARGETS ${PRONAME} LIBRARY ARCHIVE RUNTIME PUBLIC_HEADER)
+endif()
