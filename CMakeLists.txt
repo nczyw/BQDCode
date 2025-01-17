@@ -5,8 +5,11 @@ project(${PRONAME} VERSION 1.0.0 LANGUAGES C)
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
+# Create test application ?
 option(DllTest "Create dll test exe file" OFF)
+# Create shared library ?
 option(BQDCODE_SHARED_LIBS "Create BQDCODE shared library" OFF)
+# Close WITH_TOOLS because no use it
 set(WITH_TOOLS OFF CACHE BOOL "Force utility tools to be OFF" FORCE) 
 # Add libbarcode
 add_subdirectory(external/libbarcode)
@@ -22,7 +25,7 @@ file(GLOB_RECURSE SOURCES "src/*.c")
 file(GLOB_RECURSE HEADERS "inc/*.h")
 
 if (MSVC)
-#  set(CMAKE_DEBUG_POSTFIX "_d")
+  set(CMAKE_DEBUG_POSTFIX "_d")
 endif(MSVC)
 
 # Create library
@@ -66,11 +69,8 @@ if(DllTest)
                                         external/libdmtx
                                         inc                             
         )
-        target_link_libraries(Dlltest PRIVATE 
+        target_link_libraries(Dlltest PRIVATE
                                 ${PRONAME}
-                                #barcode
-                                #qrencode
-                                #dmtx_static
         )
         
 endif()
@@ -84,16 +84,6 @@ install(TARGETS ${PRONAME}
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
 )
-# Install header files
-#[[
-file(GLOB_RECURSE HEADERS 
-        "inc/*.h"
-        "libbarcode/inc/barcode.h"
-        "libbarcode/inc/config.h"
-        "libqrencode/qrencode.h"
-        "libdmtx/dmtx.h"
-        "libdmtx/dmtxstatic.h"
-)
-
-install(FILES ${HEADERS} DESTINATION include)
-]]
+# install 
+set_target_properties(${PRONAME} PROPERTIES PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/inc/bqdcode.h" OUTPUT_NAME ${PRONAME})
+install(TARGETS ${PRONAME} LIBRARY ARCHIVE RUNTIME PUBLIC_HEADER)
