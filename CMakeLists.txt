@@ -88,7 +88,8 @@ else()
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
   )
+endif()
   # install 
   set_target_properties(${PRONAME} PROPERTIES PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/inc/bqdcode.h" OUTPUT_NAME ${PRONAME})
   install(TARGETS ${PRONAME} LIBRARY ARCHIVE RUNTIME PUBLIC_HEADER)
-endif()
+
