@@ -47,7 +47,7 @@ target_link_libraries(${PRONAME} PRIVATE
                         dmtx_static
 )
 
-target_include_directories(${PRONAME} PUBLIC
+target_include_directories(${PRONAME} PRIVATE
                                 external/libbarcode/inc
                                 external/libqrencode
                                 external/libdmtx
